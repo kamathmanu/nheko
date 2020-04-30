@@ -46,13 +46,13 @@ cmake -GNinja -H. -Bbuild \
     -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5 \
     -DCI_BUILD=ON
 else
-cmake -GNinja -H. -Bbuild \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_INSTALL_PREFIX=.deps/usr \
-    -DHUNTER_ROOT=".hunter" \
-    -DHUNTER_ENABLED=ON -DBUILD_SHARED_LIBS=OFF \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo -DHUNTER_CONFIGURATION_TYPES=RelWithDebInfo \
-    -DUSE_BUNDLED_OPENSSL=OFF \
+cmake -GNinja -H. -Bbuild
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    -DCMAKE_INSTALL_PREFIX=.deps/usr
+    -DHUNTER_ROOT=".hunter"
+    -DHUNTER_ENABLED=ON -DBUILD_SHARED_LIBS=OFF
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo -DHUNTER_CONFIGURATION_TYPES=RelWithDebInfo
+    -DUSE_BUNDLED_OPENSSL=OFF
     -DCI_BUILD=ON
 fi
 cmake --build build
