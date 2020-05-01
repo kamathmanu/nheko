@@ -1,3 +1,7 @@
+variables:
+  CCACHE_COMPILERCHECK: content
+  CCACHE_DIR: .ccache
+
 build-gcc7:
   stage: build
   image: ubuntu:18.04
@@ -20,5 +24,6 @@ build-gcc7:
     key: "$CI_JOB_NAME"
     paths:
       - .hunter/
+      - .ccache
 
 
