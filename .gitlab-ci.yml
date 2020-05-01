@@ -36,9 +36,9 @@ build-flatpak-amd64:
   tags: [docker]
   before_script:
     - apt-get -y install --no-install-recommends flatpak-builder git
-	  - flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	  - flatpak --noninteractive install --user flathub org.kde.Platform//5.14
-	  - flatpak --noninteractive install --user flathub org.kde.Sdk//5.14
+    - flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    - flatpak --noninteractive install --user flathub org.kde.Platform//5.14
+    - flatpak --noninteractive install --user flathub org.kde.Sdk//5.14
   script:
     - export VERSION=$(git describe)
     - mkdir -p build-flatpak
