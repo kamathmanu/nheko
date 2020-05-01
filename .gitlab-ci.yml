@@ -1,6 +1,8 @@
 variables:
   CCACHE_COMPILERCHECK: content
   CCACHE_DIR: "${CI_PROJECT_DIR}/.ccache"
+  # prevent configure tzdata hanging apt install commands
+  DEBIAN_FRONTEND: noninteractive
 
 build-gcc7:
   stage: build
