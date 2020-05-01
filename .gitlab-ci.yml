@@ -3,7 +3,7 @@ build-gcc7:
   image: ubuntu:18.04
   tags: [docker]
   before_script:
-    - apt update && apt -y install wget g++ ninja-build qt{base,declarative,tools,multimedia,script,quickcontrols2-}5-dev qml-module-qt{gstreamer,multimedia,quick-extras,-labs-settings,graphicaleffects,quick-controls2} libqt5svg5-dev liblmdb-dev libgl1-mesa-dev libssl-dev git
+    - apt update && apt -y install --no-install-recommends wget g++ ninja-build qt{base,declarative,tools,multimedia,script,quickcontrols2-}5-dev qml-module-qt{gstreamer,multimedia,quick-extras,-labs-settings,graphicaleffects,quick-controls2} libqt5svg5-dev liblmdb-dev libgl1-mesa-dev libssl-dev git
     - wget https://cmake.org/files/v3.15/cmake-3.15.5-Linux-x86_64.sh && sh cmake-3.15.5-Linux-x86_64.sh  --skip-license  --prefix=/usr/local
   script:
     - mkdir -p build
