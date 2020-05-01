@@ -17,7 +17,7 @@ build-gcc7:
     - which c++
     - which ccache
     - ls -la $(which c++)
-    - ls -la /usr/local/bin
+    - ls -la /usr/lib/ccache
     - mkdir -p build
     - cmake -GNinja -H. -Bbuild
         -DCMAKE_BUILD_TYPE=RelWithDebInfo
