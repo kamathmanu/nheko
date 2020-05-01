@@ -7,9 +7,9 @@ build-gcc7:
   image: ubuntu:18.04
   tags: [docker]
   before_script:
-    - apt update && apt -y install --no-install-recommends g++ ninja-build qt{base,declarative,tools,multimedia,script,quickcontrols2-}5-dev qml-module-qt{gstreamer,multimedia,quick-extras,-labs-settings,graphicaleffects,quick-controls2} libqt5svg5-dev liblmdb-dev libgl1-mesa-dev libssl-dev git ccache
+    - apt-get update && apt-get -y install --no-install-recommends g++ ninja-build qt{base,declarative,tools,multimedia,script,quickcontrols2-}5-dev qml-module-qt{gstreamer,multimedia,quick-extras,-labs-settings,graphicaleffects,quick-controls2} libqt5svg5-dev liblmdb-dev libgl1-mesa-dev libssl-dev git ccache
     # need recommended deps for wget
-    - apt -y install wget
+    - apt-get -y install wget
     - wget https://cmake.org/files/v3.15/cmake-3.15.5-Linux-x86_64.sh && sh cmake-3.15.5-Linux-x86_64.sh  --skip-license  --prefix=/usr/local
     - /usr/sbin/update-ccache-symlinks
   script:
@@ -30,4 +30,27 @@ build-gcc7:
       - .hunter/
       - .ccache
 
+build-flatpak-amd64:
+  stage: build
+  image: ubuntu:latest
+  tags: [docker]
+  before_script:
+    - apt-get -y install --no-install-recommends flatpak-builder git
+	  - flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	  - flatpak --noninteractive install --user flathub org.kde.Platform//5.14
+	  - flatpak --noninteractive install --user flathub org.kde.Sdk//5.14
+  script:
+    - export VERSION=$(git describe)
+    - mkdir -p build-flatpak
+	  - cd build-flatpak
+    - flatpak-builder --ccache --repo=repo --subject="Build of Nheko ${VERSION} `date`" app ../io.github.NhekoReborn.Nheko.json
+	  - flatpak build-bundle repo nheko-${VERSION}-amd64.flatpak io.github.NhekoReborn.Nheko ${CI_COMMIT_REF_NAME}
+  cache:
+    key: "$CI_JOB_NAME"
+    paths:
+      - build-flatpak/.flatpak-builder
+  artifacts:
+    expose_as: 'flatpak-amd64'
+    paths: ['flatpak-builder/nheko-*.flatpak']
+    name: flatpak-${CI_COMMIT_REF_NAME}-amd64
 
