@@ -1,7 +1,6 @@
 variables:
   CCACHE_COMPILERCHECK: content
-  CCACHE_DIR: .ccache
-  CCACHE_DEBUG: 1
+  CCACHE_DIR: "${CI_PROJECT_DIR}/.ccache"
 
 build-gcc7:
   stage: build
@@ -15,8 +14,6 @@ build-gcc7:
     - /usr/sbin/update-ccache-symlinks
   script:
     - export PATH="/usr/lib/ccache:${PATH}"
-    - echo $PATH
-    - which c++
     - mkdir -p build
     - cmake -GNinja -H. -Bbuild
         -DCMAKE_BUILD_TYPE=RelWithDebInfo
