@@ -1,6 +1,7 @@
 variables:
   CCACHE_COMPILERCHECK: content
   CCACHE_DIR: .ccache
+  CCACHE_DEBUG: 1
 
 build-gcc7:
   stage: build
