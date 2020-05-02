@@ -47,13 +47,13 @@ build-flatpak-amd64:
     - mkdir -p build-flatpak
     - cd build-flatpak
     - flatpak-builder --user --disable-rofiles-fuse --ccache --repo=repo --default-branch=${CI_COMMIT_REF_NAME} --subject="Build of Nheko ${VERSION} `date`" app ../io.github.NhekoReborn.Nheko.json
-    - flatpak build-bundle repo nheko-${VERSION}-amd64.flatpak io.github.NhekoReborn.Nheko ${CI_COMMIT_REF_NAME}
+    - flatpak build-bundle repo nheko-amd64.flatpak io.github.NhekoReborn.Nheko ${CI_COMMIT_REF_NAME}
   cache:
     key: "$CI_JOB_NAME"
     paths:
-      - build-flatpak/.flatpak-builder
+      - --default-branch=.flatpak-builder
   artifacts:
     expose_as: 'flatpak-amd64'
-    paths: ['nheko-${VERSION}-amd64.flatpak']
-    name: flatpak-${CI_COMMIT_REF_NAME}-amd64
+    paths: ['nheko-amd64.flatpak']
+    name: flatpak-${CI_COMMIT_REF_NAME}-${VERSION}-amd64
 
