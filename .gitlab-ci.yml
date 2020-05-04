@@ -34,11 +34,12 @@ build-gcc7:
 
 build-flatpak-amd64:
   stage: build
-  image: ubuntu:latest
+  image: alpine:latest
   #image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master'
   tags: [docker]
   before_script:
-    - apt-get update && apt-get -y install flatpak-builder git
+    - echo 'http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories
+    - apk update && apk install flatpak-builder git
     - flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     - flatpak --noninteractive install --user flathub org.kde.Platform//5.14
     - flatpak --noninteractive install --user flathub org.kde.Sdk//5.14
