@@ -54,6 +54,14 @@ build-flatpak-amd64:
       - nheko-amd64.flatpak
   artifacts:
     expose_as: 'flatpak-amd64'
-    paths: ['nheko-amd64.flatpak']
+    paths: ['build-flatpak/nheko-amd64.flatpak']
     name: flatpak-${CI_COMMIT_REF_NAME}-${VERSION}-amd64
 
+linting:
+  stage: build
+  image: ubuntu:latest
+  tags: [docker]
+  before_script:
+    - apt-get update && apt-get -y install clang-format make git
+  script:
+    - make lint
