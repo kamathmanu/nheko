@@ -59,9 +59,9 @@ build-flatpak-amd64:
 
 linting:
   stage: build
-  image: ubuntu:latest
+  image: alpine:latest
   tags: [docker]
   before_script:
-    - apt-get update && apt-get -y install clang-format make git
+    - apk update && apk add clang make git
   script:
     - make lint
