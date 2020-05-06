@@ -32,6 +32,26 @@ build-gcc7:
       - .hunter/
       - .ccache
 
+build-macos:
+  stage: build
+  tags: [macos]
+  before_script:
+    - brew update
+    - brew tap nlohmann/json
+    - brew install clang-format cmake ninja openssl qt5 python3 nlohmann_json
+  script:
+    - export PATH=/usr/local/opt/qt/bin/:${PATH}
+    - export CMAKE_PREFIX_PATH=/usr/local/opt/qt5
+    - cmake -GNinja -H. -Bbuild
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo
+        -DCMAKE_INSTALL_PREFIX=.deps/usr
+        -DHUNTER_ROOT=".hunter"
+        -DHUNTER_ENABLED=ON -DBUILD_SHARED_LIBS=OFF
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo -DHUNTER_CONFIGURATION_TYPES=RelWithDebInfo
+        -DUSE_BUNDLED_OPENSSL=OFF
+        -DCI_BUILD=ON
+    - cmake --build build
+
 build-flatpak-amd64:
   stage: build
   image: alpine:latest
