@@ -54,11 +54,10 @@ build-macos:
 
 build-flatpak-amd64:
   stage: build
-  image: alpine:latest
+  image: ubuntu:latest
   #image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master'
   tags: [docker]
   before_script:
-    - echo 'http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories
     - apt-get update && apt-get -y install flatpak-builder git
     - flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     - flatpak --noninteractive install --user flathub org.kde.Platform//5.14
