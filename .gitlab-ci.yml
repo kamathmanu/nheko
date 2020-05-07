@@ -48,17 +48,17 @@ build-macos:
         -DHUNTER_ROOT=".hunter"
         -DHUNTER_ENABLED=ON -DBUILD_SHARED_LIBS=OFF
         -DCMAKE_BUILD_TYPE=RelWithDebInfo -DHUNTER_CONFIGURATION_TYPES=RelWithDebInfo
-        -DUSE_BUNDLED_OPENSSL=OFF
+        -DUSE_BUNDLED_OPENSSL=ON
+        -DUSE_BUNDLED_BOOST=ON
         -DCI_BUILD=ON
     - cmake --build build
 
 build-flatpak-amd64:
   stage: build
-  image: alpine:latest
+  image: ubuntu:latest
   #image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master'
   tags: [docker]
   before_script:
-    - echo 'http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories
     - apt-get update && apt-get -y install flatpak-builder git
     - flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     - flatpak --noninteractive install --user flathub org.kde.Platform//5.14
