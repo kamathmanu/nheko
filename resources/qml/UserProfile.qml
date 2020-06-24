@@ -57,6 +57,7 @@ ApplicationWindow{
                 height: 130
                 width: 130
                 displayName: modelData.userName
+		userid: modelData.userId
                 Layout.alignment: Qt.AlignHCenter
             }
 
