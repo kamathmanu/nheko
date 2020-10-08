@@ -34,9 +34,39 @@ Item {
 		fillMode: Image.PreserveAspectFit
 
 		MouseArea {
+			id: mouseArea
 			enabled: model.data.type == MtxEvent.ImageMessage && img.status == Image.Ready
 			anchors.fill: parent
+			hoverEnabled: true
+	
 			onClicked: timelineManager.openImageOverlay(model.data.url, model.data.id)
+		}
+
+		Item {
+			id: overlay
+			anchors.fill: parent
+			visible: mouseArea.containsMouse
+
+			Rectangle {
+				id: captionbox
+				width: parent.width
+				height: parent.height * 0.1
+				anchors.bottom: overlay.bottom; anchors.right: overlay.right;
+				color: "dimgray" 
+
+				Text {
+					id: imgcaption
+					width: parent.width
+					elide: Text.ElideMiddle
+					horizontalAlignment: Text.AlignHCenter
+					verticalAlignment: Text.AlignVCenter
+					
+					text: model.data.filename ? model.data.filename : model.data.body
+					
+					font.pointSize: 10.5
+					color: "white"
+				}
+			}
 		}
 	}
 }
