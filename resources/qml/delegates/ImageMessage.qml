@@ -34,11 +34,12 @@ Item {
 		fillMode: Image.PreserveAspectFit
 
 		MouseArea {
+
 			id: mouseArea
 			enabled: model.data.type == MtxEvent.ImageMessage && img.status == Image.Ready
 			anchors.fill: parent
 			hoverEnabled: true
-	
+
 			onClicked: timelineManager.openImageOverlay(model.data.url, model.data.id)
 		}
 
@@ -48,22 +49,26 @@ Item {
 			visible: mouseArea.containsMouse
 
 			Rectangle {
-				id: captionbox
-				width: parent.width
-				height: parent.height * 0.1
+				id: container
+				
+				width: parent.width			
+				implicitHeight: imgcaption.implicitHeight
 				anchors.bottom: overlay.bottom; anchors.right: overlay.right;
 				color: "dimgray" 
 
 				Text {
 					id: imgcaption
-					width: parent.width
+					
+					anchors.fill: parent
+					
 					elide: Text.ElideMiddle
 					horizontalAlignment: Text.AlignHCenter
 					verticalAlignment: Text.AlignVCenter
 					
+					// See this MSC: https://github.com/matrix-org/matrix-doc/pull/2530
 					text: model.data.filename ? model.data.filename : model.data.body
 					
-					font.pointSize: 10.5
+					font.pointSize: 11
 					color: "white"
 				}
 			}
